@@ -1357,7 +1357,6 @@ class Bedwars extends PluginBase implements Listener {
                         if ($sender instanceof Player) {
                             foreach ($this->pg->arenas as $a) {
                                 if ($a->join($sender, false))
-                            }
                             $sender->sendMessage(TextFormat::RED . 'No games, retry later');
                         }
                     }
@@ -1380,10 +1379,6 @@ class Bedwars extends PluginBase implements Listener {
                     } else {
                         $sender->sendMessage(TextFormat::RED . 'Player not found!');
                     }
-                }
-             }
-          }
-       }
         if($cmd->getName() == "Start" && $sender->hasPermission("bw.forcestart")){
             if($sender instanceof Player){
                 if($this->inArena($sender)){
