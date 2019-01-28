@@ -164,8 +164,8 @@ class Bedwars extends PluginBase implements Listener {
         }
 
 
-        $this->getServer()->getScheduler()->scheduleRepeatingTask(new BWRefreshSigns($this), 20);
-        $this->getServer()->getScheduler()->scheduleRepeatingTask(new BWGameSender($this), 20);
+        $this->getScheduler()->scheduleRepeatingTask(new BWRefreshSigns($this), 20);
+        $this->getScheduler()->scheduleRepeatingTask(new BWGameSender($this), 20);
 
     }
     ############################################################################################################
@@ -217,7 +217,7 @@ class Bedwars extends PluginBase implements Listener {
     }
     public function getTeam($pn){
 
-        $pn = str_replace("§", "", $pn);
+        $pn = str_replace("Â§", "", $pn);
         $pn = str_replace(TextFormat::ESCAPE, "", $pn);
         $color = $pn{0};
         return $this->convertColorToTeam($color);
@@ -1232,7 +1232,7 @@ class Bedwars extends PluginBase implements Listener {
                         $config->save();
                         $event->setDrops(array());
 
-                        $player->sendMessage($this->prefix . "Du hast das Bett von Team " . $team . " zerstört!");
+                        $player->sendMessage($this->prefix . "Du hast das Bett von Team " . $team . " zerstÃ¶rt!");
 
                         foreach ($this->getPlayers($arena) as $pn) {
                             $p = $this->getServer()->getPlayerExact($pn);
@@ -1508,7 +1508,6 @@ class BWRefreshSigns extends Task {
     public function __construct(Bedwars $plugin) {
         $this->plugin = $plugin;
         $this->prefix = $this->plugin->prefix;
-        parent::__construct($plugin);
     }
 
     public function onRun($tick) {
@@ -1557,7 +1556,6 @@ class BWGameSender extends Task {
     public function __construct(Bedwars $plugin) {
         $this->plugin = $plugin;
         $this->prefix = $plugin->prefix;
-        parent::__construct($plugin);
     }
 
     public function onRun($tick) {
