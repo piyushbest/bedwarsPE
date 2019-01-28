@@ -1346,24 +1346,20 @@ class Bedwars extends PluginBase implements Listener {
         if($cmd->getName() == "Join" && $sender->hasPermission("bw.forcejoin")){
                     if (!(count($args) < 0b11)) {
                         $sender->sendMessage(TextFormat::AQUA . '?' . TextFormat::RED . 'Usage: /bw ' . TextFormat::GREEN . 'join [SWname]' . TextFormat::GRAY . ' [PlayerName]');
-                        break;
                     }
                     if (isset($args[0])) {
                         //BW NAME
                         $BWname = TextFormat::clean(array_shift($args));
-                        if (!array_key_exists($SWname, $this->pg->arenas)) {
+                        if (!array_key_exists($BWname, $this->pg->arenas)) {
                             $sender->sendMessage(TextFormat::AQUA . '?' . TextFormat::RED . 'Arena with name: ' . TextFormat::WHITE . $SWname . TextFormat::RED . ' doesn\'t exist');
-                            break;
                         }
                     } else {
                         if ($sender instanceof Player) {
                             foreach ($this->pg->arenas as $a) {
                                 if ($a->join($sender, false))
-                                    break 2;
                             }
                             $sender->sendMessage(TextFormat::RED . 'No games, retry later');
                         }
-                        break;
                     }
                     $player = TextFormat::clean(array_shift($args));
                     if (strlen($player) > 0 && $sender instanceof \pocketmine\command\ConsoleCommandSender) {
@@ -1371,7 +1367,6 @@ class Bedwars extends PluginBase implements Listener {
                         if ($p instanceof Player) {
                             if ($this->pg->inArena($p->getName())) {
                                 $p->sendMessage(TextFormat::AQUA . '?' . TextFormat::RED . 'You are already inside an arena');
-                                break;
                             }
                             $this->pg->arenas[$BWname]->join($p);
                         } else {
@@ -1380,13 +1375,15 @@ class Bedwars extends PluginBase implements Listener {
                     } elseif ($sender instanceof Player) {
                         if ($this->pg->inArena($sender->getName())) {
                             $sender->sendMessage(TextFormat::AQUA . '?' . TextFormat::RED . 'You are already inside an arena');
-                            break;
                         }
                         $this->pg->arenas[$BWname]->join($sender);
                     } else {
                         $sender->sendMessage(TextFormat::RED . 'Player not found!');
                     }
-        $name = $sender->getName();
+                }
+             }
+          }
+       }
         if($cmd->getName() == "Start" && $sender->hasPermission("bw.forcestart")){
             if($sender instanceof Player){
                 if($this->inArena($sender)){
