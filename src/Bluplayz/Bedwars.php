@@ -41,6 +41,7 @@ use pocketmine\nbt\tag\StringTag;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\scheduler\Task;
+use pocketmine\Bluplayz\BWRefreshSigns;
 use pocketmine\tile\Chest;
 use pocketmine\tile\Sign;
 use pocketmine\tile\Tile;
