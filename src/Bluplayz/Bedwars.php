@@ -40,6 +40,7 @@ use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
+use pocketmine\plugin\BWRefreshSigns;
 use pocketmine\scheduler\Task;
 use pocketmine\tile\Chest;
 use pocketmine\tile\Sign;
@@ -1341,6 +1342,53 @@ class Bedwars extends PluginBase implements Listener {
 
     public function onCommand(CommandSender $sender, Command $cmd, $label, array $args):bool{
 
+        if (!($sender instanceof Player) || !$sender->isOp()) {
+            switch (strtolower(array_shift($args))):
+                case 'join':
+                    if (!(count($args) < 0b11)) {
+                        $sender->sendMessage(TextFormat::AQUA . '?' . TextFormat::RED . 'Usage: /bw ' . TextFormat::GREEN . 'join [SWname]' . TextFormat::GRAY . ' [PlayerName]');
+                        break;
+                    }
+                    if (isset($args[0])) {
+                        //BW NAME
+                        $BWname = TextFormat::clean(array_shift($args));
+                        if (!array_key_exists($SWname, $this->pg->arenas)) {
+                            $sender->sendMessage(TextFormat::AQUA . '?' . TextFormat::RED . 'Arena with name: ' . TextFormat::WHITE . $SWname . TextFormat::RED . ' doesn\'t exist');
+                            break;
+                        }
+                    } else {
+                        if ($sender instanceof Player) {
+                            foreach ($this->pg->arenas as $a) {
+                                if ($a->join($sender, false))
+                                    break 2;
+                            }
+                            $sender->sendMessage(TextFormat::RED . 'No games, retry later');
+                        }
+                        break;
+                    }
+                    $player = TextFormat::clean(array_shift($args));
+                    if (strlen($player) > 0 && $sender instanceof \pocketmine\command\ConsoleCommandSender) {
+                        $p = $sender->getServer()->getPlayer($player);
+                        if ($p instanceof Player) {
+                            if ($this->pg->inArena($p->getName())) {
+                                $p->sendMessage(TextFormat::AQUA . '?' . TextFormat::RED . 'You are already inside an arena');
+                                break;
+                            }
+                            $this->pg->arenas[$BWname]->join($p);
+                        } else {
+                            $sender->sendMessage(TextFormat::RED . 'Player not found!');
+                        }
+                    } elseif ($sender instanceof Player) {
+                        if ($this->pg->inArena($sender->getName())) {
+                            $sender->sendMessage(TextFormat::AQUA . '?' . TextFormat::RED . 'You are already inside an arena');
+                            break;
+                        }
+                        $this->pg->arenas[$BWname]->join($sender);
+                    } else {
+                        $sender->sendMessage(TextFormat::RED . 'Player not found!');
+                    }
+        
+{
         $name = $sender->getName();
         if($cmd->getName() == "Start" && $sender->hasPermission("bw.forcestart")){
             if($sender instanceof Player){
@@ -1506,12 +1554,10 @@ class BWRefreshSigns extends Task {
     public $plugin;
 
     public function __construct(Bedwars $plugin) {
-        $this->arenaData = $config->getAll();
-        $this->getPlugin()->getScheduler()->scheduleRepeatingTask(new RefreshSignScheduler($this), 20*5);
-        if(boolval($this->arenaData["enabled"])) {
-            $this->loadGame();
-        }
+        $this->plugin = $plugin;
+        $this->prefix = $this->plugin->prefix;
     }
+
     public function onRun($tick) {
         $levels = $this->plugin->getServer()->getDefaultLevel();
         $tiles = $levels->getTiles();
