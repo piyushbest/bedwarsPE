@@ -1342,9 +1342,8 @@ class Bedwars extends PluginBase implements Listener {
 
     public function onCommand(CommandSender $sender, Command $cmd, $label, array $args):bool{
 
-        if (!($sender instanceof Player) || !$sender->isOp()) {
-            switch (strtolower(array_shift($args))):
-                case 'join':
+                $name = $sender->getName();
+        if($cmd->getName() == "Join" && $sender->hasPermission("bw.forcejoin")){
                     if (!(count($args) < 0b11)) {
                         $sender->sendMessage(TextFormat::AQUA . '?' . TextFormat::RED . 'Usage: /bw ' . TextFormat::GREEN . 'join [SWname]' . TextFormat::GRAY . ' [PlayerName]');
                         break;
@@ -1387,8 +1386,6 @@ class Bedwars extends PluginBase implements Listener {
                     } else {
                         $sender->sendMessage(TextFormat::RED . 'Player not found!');
                     }
-        
-{
         $name = $sender->getName();
         if($cmd->getName() == "Start" && $sender->hasPermission("bw.forcestart")){
             if($sender instanceof Player){
