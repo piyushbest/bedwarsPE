@@ -40,7 +40,6 @@ use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
-use pocketmine\plugin\BWRefreshSigns;
 use pocketmine\scheduler\Task;
 use pocketmine\tile\Chest;
 use pocketmine\tile\Sign;
