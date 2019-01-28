@@ -10,3 +10,5 @@ commands:
         aliases: [bw]
     Start:
         description: Bedwars Forcestart Command
+    Join:
+        description: BedWars Arena Join
