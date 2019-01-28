@@ -1506,10 +1506,12 @@ class BWRefreshSigns extends Task {
     public $plugin;
 
     public function __construct(Bedwars $plugin) {
-        $this->plugin = $plugin;
-        $this->prefix = $this->plugin->prefix;
+        $this->arenaData = $config->getAll();
+        $this->getPlugin()->getScheduler()->scheduleRepeatingTask(new RefreshSignScheduler($this), 20*5);
+        if(boolval($this->arenaData["enabled"])) {
+            $this->loadGame();
+        }
     }
-
     public function onRun($tick) {
         $levels = $this->plugin->getServer()->getDefaultLevel();
         $tiles = $levels->getTiles();
