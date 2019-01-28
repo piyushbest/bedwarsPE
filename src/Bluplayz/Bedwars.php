@@ -1544,17 +1544,6 @@ Arena does not exist!");
 return true;
     }
 }
-
-class BWRefreshSigns extends Task {
-
-    public $prefix = "";
-    public $plugin;
-
-    public function __construct(Bedwars $plugin) {
-        $this->plugin = $plugin;
-        $this->prefix = $this->plugin->prefix;
-    }
-
     public function onRun($tick) {
         $levels = $this->plugin->getServer()->getDefaultLevel();
         $tiles = $levels->getTiles();
