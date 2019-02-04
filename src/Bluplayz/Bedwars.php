@@ -1549,7 +1549,7 @@ class Bedwars extends Task {
         }
     }
 }
-class Bedwars extends Task {
+class Bedwars extends GameSenderTask {
 
     public $prefix;
 
