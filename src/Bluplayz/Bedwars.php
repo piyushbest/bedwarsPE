@@ -40,8 +40,7 @@ use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
-use pocketmine\scheduler\RefreshSignTask;
-use pocketmine\scheduler\GamerSenderTask;
+use pocketmine\scheduler\Task;
 use pocketmine\tile\Chest;
 use pocketmine\tile\Sign;
 use pocketmine\utils\Config;
@@ -1501,7 +1500,7 @@ return true;
     }
 }
 
-class Bedwars extends RefreshSignTask {
+class Bedwars extends Task {
 
     public $prefix;
 
@@ -1550,7 +1549,7 @@ class Bedwars extends RefreshSignTask {
         }
     }
 }
-class Bedwars extends GamerSenderTask {
+class Bedwars extends Task {
 
     public $prefix;
 
