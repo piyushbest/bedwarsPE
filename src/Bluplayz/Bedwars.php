@@ -45,7 +45,6 @@ use pocketmine\tile\Chest;
 use pocketmine\tile\Sign;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
-use pocketmine\level\Level;
 use pocketmine\tile\Tile;
 
 class Bedwars extends PluginBase implements Listener {
