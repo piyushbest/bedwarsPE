@@ -1500,7 +1500,7 @@ return true;
     }
 }
 
-class RefreshSigns extends BedWarsTask {
+class Bedwars extends RefreshSignTask {
 
     public $prefix;
 
@@ -1549,7 +1549,7 @@ class RefreshSigns extends BedWarsTask {
         }
     }
 }
-class GameSender extends BedWarsTask {
+class Bedwars extends GamerSenderTask {
 
     public $prefix;
 
