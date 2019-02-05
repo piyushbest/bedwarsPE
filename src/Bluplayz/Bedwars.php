@@ -1549,5 +1549,3 @@ class Bedwars extends Task {
         }
     }
 }
-
-}
