@@ -4,6 +4,7 @@ namespace Bluplayz;
 
 use pocketmine\scheduler\Task;
 use pocketmine\tile\Sign;
+use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
 use pocketmine\level\Level;
 
