@@ -163,9 +163,8 @@ class Bedwars extends PluginBase implements Listener {
             $shop->save();
         }
 
-
-        $this->getScheduler()->scheduleRepeatingTask(new BWRefreshSigns($this), 20);
-        $this->getScheduler()->scheduleRepeatingTask(new BWGameSender($this), 20);
+);
+        $this->getScheduler()->scheduleRepeatingTask(new GameSender($this), 20);
 
     }
     ############################################################################################################
