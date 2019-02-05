@@ -2,7 +2,7 @@ name: Bedwars
 version: 2.2
 api: [3.0.0, 3.1.0, 3.1.2]
 main: Bluplayz\Bedwars
-author: Bluplayz
+author: ppiyushbest
 website: http://youtube.com/Bluplayz
 commands:
     Bedwars:
