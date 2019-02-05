@@ -2,6 +2,7 @@
 
 namespace Bluplayz;
 
+use pocketmine\scheduler\Task;
 use pocketmine\Player;
 use pocketmine\level\Position;
 use pocketmine\utils\TextFormat;
@@ -11,7 +12,7 @@ use pocketmine\math\Vector3;
 use pocketmine\item\Item;
 use pocketmine\tile\Sign;
 
-class GameSender extends GameSenderTask {
+class GameSender extends Task {
 
     public $prefix;
 
