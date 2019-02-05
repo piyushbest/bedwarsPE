@@ -1,6 +1,6 @@
 <?php
 
-namespace Bedwars;
+namespace Bluplayz;
 
 use pocketmine\Player;
 use pocketmine\level\Position;
@@ -11,7 +11,7 @@ use pocketmine\math\Vector3;
 use pocketmine\item\Item;
 use pocketmine\tile\Sign;
 
-class Bedwars extends GameSenderTask {
+class GameSender extends GameSenderTask {
 
     public $prefix;
 
