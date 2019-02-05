@@ -163,7 +163,7 @@ class Bedwars extends PluginBase implements Listener {
             $shop->save();
         }
 
-);
+
         $this->getScheduler()->scheduleRepeatingTask(new GameSender($this), 20);
 
     }
