@@ -12,13 +12,12 @@ class BWRefreshSigns extends Task {
 
     public $prefix;
 
-    public function __construct(Bedwars $plugin) {
-        $this->arenaData = $config->getAll();
-        $this->getPlugin()->getScheduler()->scheduleRepeatingTask(new RefreshSignScheduler($this), 20*5);
-        if(boolval($this->arenaData["enabled"])) {
-            $this->loadGame();
-        }
+    public function __construct($plugin) {
+        $this->plugin = $plugin;
+        parent::__construct($plugin);
+        $this->prefix = $this->plugin->getConfig()->get("prefix");
     }
+
     public function onRun($tick) {
         $levels = $this->plugin->getServer()->getDefaultLevel();
         $tiles = $levels->getTiles();
