@@ -14,7 +14,6 @@ class BWRefreshSigns extends Task {
 
     public function __construct($plugin) {
         $this->plugin = $plugin;
-        parent::__construct($plugin);
         $this->prefix = $this->plugin->getConfig()->get("prefix");
     }
 
