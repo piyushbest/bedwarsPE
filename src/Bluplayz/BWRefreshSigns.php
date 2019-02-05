@@ -19,40 +19,33 @@ class BWRefreshSigns extends Task {
     }
 
     public function onRun($tick) {
-        $levels = $this->plugin->getServer()->getDefaultLevel();
-        $tiles = $levels->getTiles();
+        $allplayers = $this->plugin->getServer()->getOnlinePlayers();
+        $level = $this->plugin->getServer()->getDefaultLevel();
+        $tiles = $level->getTiles();
         foreach ($tiles as $t) {
             if ($t instanceof Sign) {
                 $text = $t->getText();
                 if ($text[0] == $this->prefix) {
-                    $arena = substr($text[1], 0, -4);
-                    $config = new Config($this->plugin->getDataFolder()."Arenas/".$arena.".yml", Config::YAML);
-                    $players = $this->plugin->getPlayers($arena);
-                    $status = $config->get("Status");
-
-                    $welt = $this->plugin->getArenaWorlds($arena)[0];
-                    $level = $this->plugin->getServer()->getLevelByName($welt);
-
-                    $arenasign = $text[1];
-
-                    $teams = (int) $config->get("Teams");
-                    $ppt = (int) $config->get("PlayersPerTeam");
-
-                    $maxplayers = $teams * $ppt;
-                    $ingame = TextFormat::GREEN."Betreten";
-
-                    if ($status != "Lobby") {
-                        $ingame = TextFormat::RED . "Ingame";
+                    $aop = 0;
+                    foreach ($allplayers as $player) {
+                        if ($player->getLevel()->getFolderName() == TextFormat::clean($text[1])) {
+                            $aop = $aop + 1;
+                        }
                     }
-                    if (count($players) >= $maxplayers) {
-                        $ingame = TextFormat::RED . "Voll";
+                    $ingame = TextFormat::GREEN . "JOIN";
+                    $config = $this->plugin->getConfig();
+                    $time = (int) $config->getNested("arenas." . TextFormat::clean($text[1]) . ".start");
+                    $maxPlayers = (int) $config->getNested("arenas." . TextFormat::clean($text[1]) . ".maxPlayers");
+                    if ($time === 0) {
+                        $ingame = TextFormat::RED . "INGAME";
                     }
-                    if ($status == "End") {
-                        $ingame = TextFormat::RED . "Restart";
+                    if ($aop >= $maxPlayers && $time != 0) {
+                        $ingame = TextFormat::GOLD . "FULL";
                     }
-                    $t->setText($this->prefix, $arenasign, $ingame, TextFormat::WHITE . (count($players)) . TextFormat::GRAY . " / ". TextFormat::RED . $maxplayers);
+                    $t->setText($this->prefix, $text[1], $ingame, TextFormat::YELLOW . $aop . "/" . $config->getNested("arenas." . TextFormat::clean($text[1]) . ".maxPlayers"));
                 }
             }
         }
     }
+
 }
